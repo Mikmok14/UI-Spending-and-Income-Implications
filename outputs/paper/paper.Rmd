@@ -24,7 +24,7 @@ library(kableExtra)
 
 
 ```{r}
-### Loading in cleaned data from R-script in "Scripts" Folder ###
+### Loading in cleaned data from R-script ###
 
 #Loading in rda files with dataframes containing data
 load("../rda/clean_iandsdat.rda")
@@ -59,7 +59,7 @@ clean_spendchange |>
     booktabs = TRUE,
     linesep = "",
   ) |>
-  kable_styling(latex_options = "HOLD_position")|>
+  kable_styling(latex_options = c("HOLD_position", "scale_down"))|>
   column_spec(1:7, color = "black") |>
     row_spec (0, color = "black")
 ```
@@ -72,7 +72,7 @@ clean_spendchangtype |>
     booktabs = TRUE,
     linesep = "",
   ) |>
-  kable_styling (latex_options = "HOLD_position") |>
+  kable_styling(latex_options = c("HOLD_position", "scale_down"))|>
   column_spec (1:7, color = "black") |>
   row_spec (0, color = "black")
 ```

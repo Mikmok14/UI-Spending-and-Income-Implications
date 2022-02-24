@@ -99,8 +99,8 @@ clean_spendchange <-
     "Pre-UI" = "...3",
     "During UI" = "...4",
     "Post-UI" = "...5",
-    "Dollar Change Post and During UI" = "...6",
-    "Percentage Change Post and During UI" = "...7"
+    "$ Change Post and During UI" = "...6",
+    "% Change Post and During UI" = "...7"
     )
 
 #Changing columns with numbers to numeric class
@@ -111,14 +111,14 @@ options(digits = 5)
     as.numeric(clean_spendchange$`During UI`)
   clean_spendchange$`Post-UI` <- 
     as.numeric(clean_spendchange$`Post-UI`)
-  clean_spendchange$`Dollar Change Post and During UI` <- 
-    as.numeric(clean_spendchange$`Dollar Change Post and During UI`)
-  clean_spendchange$`Percentage Change Post and During UI` <- 
-    as.numeric(clean_spendchange$`Percentage Change Post and During UI`)
+  clean_spendchange$`$ Change Post and During UI` <- 
+    as.numeric(clean_spendchange$`$ Change Post and During UI`)
+  clean_spendchange$`% Change Post and During UI` <- 
+    as.numeric(clean_spendchange$`% Change Post and During UI`)
 
 #Multiply percentage column by "100" to show percentages 
-clean_spendchange$`Percentage Change Post and During UI` <-  
-  clean_spendchange$`Percentage Change Post and During UI` * 100
+clean_spendchange$`% Change Post and During UI` <-  
+  clean_spendchange$`% Change Post and During UI` * 100
 
 save(clean_spendchange, file = "outputs/rda/clean_spendchange.rda")
 
