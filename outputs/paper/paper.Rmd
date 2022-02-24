@@ -15,6 +15,11 @@ bibliography: references.bib
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(fig.pos = "!H", echo = FALSE, warning = FALSE, message = FALSE)
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(knitr)
+library(kableExtra)
 ```
 
 ```{r}
@@ -29,14 +34,25 @@ load("clean_incomedat.rda")
 load("clean_spendchange.rda")
 load("clean_spendchangetype.rda")
 load("clean_spendingdat.rda")
+load("clean_employdat.rda")
 ```
 
-#Introduction 
-Introduction goes here
+# Introduction 
+Unemployment insurance (UI) is a crucial social welfare institution that is, although mandated by the federal government in the United States, administered on a state-by-state basis. UI walks a tightrope of free-market ethics; on the one hand it must help the unemployed stay afloat financially and provide a buffer as they look for new employment, and on the other hand it cannot be so abundant that it incentives individuals to stay unemployed. Differences in valuation between these two factors have resulted in differences in payment amount and duration in UI policies between different states. 
 
-#Data
+Peter Ganong and Pascal Noel's article, "Consumer Spending During Unemployment: Positive and Normative Implications"^[@mainrepref], examines the effects of UI policies by tracking changes in income, spending, and employment prior to, during, and post UI benefits using anonymous banking information from JPMorgan Chase Institute (JPMCI). Some metrics are also compared across different states to examine how differences in UI policies are manifested in the economy. Ganong and Noel conclude that the increased marginal benefit of income as unemployment duration increases means that an extended duration of UI payments would benefit more than an overall increased in payment amount.
 
-##Tables
+Using the original data provided by Ganong and Noel, this paper replicates the consumer spending, income, and employment hazard metrics to expand their conclusion, arguing that a diminishing payment schedule for UI across a longer duration would be even more effective. 
+
+## Literature Review
+
+# Data
+## Source and Methodology
+
+## Data ethics
+
+
+## Tables
 ```{r spendchangetab, out.extra = '', echo = FALSE}
 ### Constructing replicated table for Spending Change ###
 clean_spendchange |>
@@ -47,7 +63,7 @@ clean_spendchange |>
   ) |>
   kable_styling(latex_options = "HOLD_position")|>
   column_spec(1:7, color = "black") |>
-  row_spec(0, color = "black")
+    row_spec (0, color = "black")
 ```
 
 ```{r spendchangetypetab, out.extra = '', echo = FALSE}
@@ -66,17 +82,17 @@ clean_spendchangtype |>
 
 ##Graphs
 
-```{r spendingfig, fig.cap = "Spending Patterns Before, During, and After UI",  echo = FALES}
+```{r spendingfig, fig.cap = "Spending Patterns Before, During, and After UI",  echo = FALSE}
 ### Constructing Spending Graph from spending dataframe ###
 ggplot(clean_spendingdat,
        mapping = aes (x = `Months Since Start`, 
                       y = `Ratio to t = -5`)
        ) +
   theme_bw() +
-  geom_line(linetype = "dashed", aes(color = "interim")) +
+  geom_line(linetype = "longdash", aes(color = "interim")) +
   labs(linetype = "UI Status") +
   geom_line(aes(color = `UI Status`),
-            size = 1.25) +
+            size = 1) +
   scale_colour_manual(name = "UI Status", values = c("blue", "black", "red","green")) +
   labs(title = "Spending Ratio Before, During, and After UI if Unemployment Persists",
        x = "Months Since First UI Payment",
@@ -102,10 +118,10 @@ ggplot (clean_incomedat,
                        y = `Ratio to t = -5`)
         ) + 
   theme_bw()+
-  geom_line(linetype = "dashed", aes (color = "interim")) +
+  geom_line(linetype = "longdash", aes (color = "interim")) +
   labs(linetype = "UI Status") + 
   geom_line(aes(color = `UI Status`),
-            size = 1.25) + 
+            size = 1) + 
   scale_colour_manual(name = "UI Status", values = c("blue", "black", "red", "green")) + 
   labs(title = "Income Ratio Before, During, and After UI if Unemployment Persists",
        x = "Months Since First UI Payment",
@@ -124,7 +140,7 @@ ggplot (clean_incomedat,
              color = "black")
 ```
 
-```{r iandsfig, fig.cap = "Income and Spending Before, During, and After UI, echo = FALSE}
+```{r iandsfig, fig.cap = "Income and Spending Before, During, and After UI", echo = FALSE}
 ### Juxtaposing both income and spending graphs onto the same plane ###
 
 ggplot(clean_iandsdat) +
@@ -151,6 +167,28 @@ theme_bw() +
              linetype = "longdash",
              color = "black")
 ```
+
+```{r employfig, fig.cap = "Employment Hazard Rate During and Post-UI", echo = FALSE}
+ggplot (clean_employdat,
+        mapping = aes (x = `Months Since Last UI`,
+                       y = `Hazard Rate`)
+        ) + 
+  geom_line(linetype = "longdash", aes (color = "Interim") 
+            ) + 
+  geom_line(aes(color = `UI Status`),
+            size = 1) +
+  scale_colour_manual(name = "UI Status", values = c("red", "black", "green")) +
+  theme_bw() + 
+  scale_x_continuous(breaks = -5:5, minor_breaks = 1) + 
+  labs(title = "Employment Hazard During and After UI",
+       x = "Months Since Last Potential UI Cheque",
+       y = "Hazard Rate"
+       ) +
+  geom_vline (xintercept = 0,
+              linetype = "longdash",
+              color = "blue")
+```
+
 
 #Results
 Results go here

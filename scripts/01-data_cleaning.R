@@ -8,8 +8,6 @@
 #Use R Projects
 library(tidyverse)
 library(dplyr)
-library(ggplot2)
-library(knitr)
 library(kableExtra)
 library(readxl)
 
@@ -135,6 +133,28 @@ clean_spendchangtype <-
                                 )
 
 save (clean_spendchangtype, file = "outputs/rda/clean_spendchangetype.rda")
+
+
+#Read in raw employment hazard data
+raw_employdat <- readxl::read_xls("inputs/data/gn_ui_targets2018-09-20.xls")
+
+#Change column title 
+clean_employdat <-
+  raw_employdat %>% rename (
+    "Months Since Last UI" = "mos_since_start",
+    "Hazard Rate" = "value")
+
+#Add new column indicating UI Status
+clean_employdat <-
+  clean_employdat %>% mutate (`UI Status` = 
+                                case_when(`Months Since Last UI` < 0 ~ "During UI",
+                                          `Months Since Last UI` > 0 ~ "Post-UI") 
+                              )
+
+save(clean_employdat, file = "outputs/rda/clean_employdat.rda")
+
+
+
   
   
 
