@@ -1,0 +1,160 @@
+---
+title: Unemployment Insurance and Spending
+author: "Marco Chau and Chyna Hui"
+date: "18 February 2022"
+output:
+  bookdown::pdf_document2:
+header-includes:
+  \usepackage{float}
+  \floatplacement{figure}{H}
+toc = FALSE:
+Abstract:
+  
+bibliography: references.bib
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(fig.pos = "!H", echo = FALSE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+### Loading in cleaned data from R-script in "Scripts" Folder ###
+
+# Setting working directory to data folder
+setwd("C:/Users/chaum/OneDrive/Bachelor of Information School Work/Term 2/INF312/Paper 2/Consumer Spending Github/outputs/rda")
+
+#Loading in rda files with dataframes containing data
+load("clean_iandsdat.rda")
+load("clean_incomedat.rda")
+load("clean_spendchange.rda")
+load("clean_spendchangetype.rda")
+load("clean_spendingdat.rda")
+```
+
+#Introduction 
+Introduction goes here
+
+#Data
+
+##Tables
+```{r spendchangetab, out.extra = '', echo = FALSE}
+### Constructing replicated table for Spending Change ###
+clean_spendchange |>
+  knitr::kable(
+    caption = "Spending Change at Unemployment Insurance Exhaustion",
+    booktabs = TRUE,
+    linesep = "",
+  ) |>
+  kable_styling(latex_options = "HOLD_position")|>
+  column_spec(1:7, color = "black") |>
+  row_spec(0, color = "black")
+```
+
+```{r spendchangetypetab, out.extra = '', echo = FALSE}
+### Constructing spending change table organized by type ###
+clean_spendchangtype |>
+  knitr::kable(
+    caption = "Spending Change at Unemployment Insurance Exhaustion Organized by Spending Type",
+    booktabs = TRUE,
+    linesep = "",
+  ) |>
+  kable_styling (latex_options = "HOLD_position") |>
+  column_spec (1:7, color = "black") |>
+  row_spec (0, color = "black")
+```
+
+
+##Graphs
+
+```{r spendingfig, fig.cap = "Spending Patterns Before, During, and After UI",  echo = FALES}
+### Constructing Spending Graph from spending dataframe ###
+ggplot(clean_spendingdat,
+       mapping = aes (x = `Months Since Start`, 
+                      y = `Ratio to t = -5`)
+       ) +
+  theme_bw() +
+  geom_line(linetype = "dashed", aes(color = "interim")) +
+  labs(linetype = "UI Status") +
+  geom_line(aes(color = `UI Status`),
+            size = 1.25) +
+  scale_colour_manual(name = "UI Status", values = c("blue", "black", "red","green")) +
+  labs(title = "Spending Ratio Before, During, and After UI if Unemployment Persists",
+       x = "Months Since First UI Payment",
+       y = "Ratio of Spending to t = -5") +
+  scale_x_continuous(breaks = -5:10, minor_breaks = 1) +
+  
+  # Add vertical line at x = 0 to show start of UI
+  geom_vline(xintercept = 0.5,
+             linetype = "longdash",
+             color = "blue") +
+  geom_vline(xintercept = 5.5,
+             linetype = "longdash",
+             color = "red") + 
+  geom_hline(yintercept = 1,
+             linetype = "solid",
+             color = "black")
+```
+
+```{r incomefig, fig.cap = "Income Stream Before, During, and After UI", echo = FALSE}
+### Constructing income graph from income dataframe ###
+ggplot (clean_incomedat,
+        mapping = aes (x = `Months Since Start`,
+                       y = `Ratio to t = -5`)
+        ) + 
+  theme_bw()+
+  geom_line(linetype = "dashed", aes (color = "interim")) +
+  labs(linetype = "UI Status") + 
+  geom_line(aes(color = `UI Status`),
+            size = 1.25) + 
+  scale_colour_manual(name = "UI Status", values = c("blue", "black", "red", "green")) + 
+  labs(title = "Income Ratio Before, During, and After UI if Unemployment Persists",
+       x = "Months Since First UI Payment",
+       y = "Ratio of Income to t = -5") + 
+  scale_x_continuous(breaks = -5:10, minor_breaks = 1)+
+
+#Add vertical and horizontal lines at key points
+  geom_vline(xintercept = 0.5,
+             linetype = "longdash",
+             color = "blue") +
+  geom_vline(xintercept = 5.5,
+             linetype = "longdash",
+             color = "red") + 
+  geom_hline(yintercept = 1,
+             linetype = "solid",
+             color = "black")
+```
+
+```{r iandsfig, fig.cap = "Income and Spending Before, During, and After UI, echo = FALSE}
+### Juxtaposing both income and spending graphs onto the same plane ###
+
+ggplot(clean_iandsdat) +
+  geom_line (aes(x = `Months Since Start`,
+                 y = `Ratio to t = -5`,
+                 group = `key`,
+                 color = `key`)
+  ) +
+theme_bw() +
+  scale_colour_manual(name = "Income or Spending", values = c("black", "grey")) +
+  labs(title = "Income and Spending Ratio Before, During, and After UI if Unemployment Persists",
+       x = "Months Since First UI Payment",
+       y = "Ratio to t = -5") +
+  scale_x_continuous(breaks = -5:10, minor_breaks = 1) +
+  
+#Adding vertical and horizontal lines at key points
+    geom_vline(xintercept = 0.5,
+             linetype = "longdash",
+             color = "blue") +
+  geom_vline(xintercept = 5.5,
+             linetype = "longdash",
+             color = "red") + 
+  geom_hline(yintercept = 1,
+             linetype = "longdash",
+             color = "black")
+```
+
+#Results
+Results go here
+
+#Discussion
+Discussion goes here
+
