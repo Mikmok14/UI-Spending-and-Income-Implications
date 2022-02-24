@@ -8,7 +8,7 @@ header-includes:
   \usepackage{float}
   \floatplacement{figure}{H}
 toc = FALSE:
-Abstract:
+abstract: Abstract goes here 
   
 bibliography: references.bib
 ---
@@ -22,19 +22,17 @@ library(knitr)
 library(kableExtra)
 ```
 
+
 ```{r}
 ### Loading in cleaned data from R-script in "Scripts" Folder ###
 
-# Setting working directory to data folder
-setwd("C:/Users/chaum/OneDrive/Bachelor of Information School Work/Term 2/INF312/Paper 2/Consumer Spending Github/outputs/rda")
-
 #Loading in rda files with dataframes containing data
-load("clean_iandsdat.rda")
-load("clean_incomedat.rda")
-load("clean_spendchange.rda")
-load("clean_spendchangetype.rda")
-load("clean_spendingdat.rda")
-load("clean_employdat.rda")
+load("../rda/clean_iandsdat.rda")
+load("../rda/clean_incomedat.rda")
+load("../rda/clean_spendchange.rda")
+load("../rda/clean_spendchangetype.rda")
+load("../rda/clean_spendingdat.rda")
+load("../rda/clean_employdat.rda")
 ```
 
 # Introduction 
@@ -42,7 +40,7 @@ Unemployment insurance (UI) is a crucial social welfare institution that is, alt
 
 Peter Ganong and Pascal Noel's article, "Consumer Spending During Unemployment: Positive and Normative Implications"^[@mainrepref], examines the effects of UI policies by tracking changes in income, spending, and employment prior to, during, and post UI benefits using anonymous banking information from JPMorgan Chase Institute (JPMCI). Some metrics are also compared across different states to examine how differences in UI policies are manifested in the economy. Ganong and Noel conclude that the increased marginal benefit of income as unemployment duration increases means that an extended duration of UI payments would benefit more than an overall increased in payment amount.
 
-Using the original data provided by Ganong and Noel, this paper replicates the consumer spending, income, and employment hazard metrics to expand their conclusion, arguing that a diminishing payment schedule for UI across a longer duration would be even more effective. 
+Using the original data provided by Ganong and Noel, this paper replicates the consumer spending, income, and employment hazard metrics to expand their conclusion, arguing that a diminishing payment schedule for UI across a longer duration would be even more effective. To develop this argument, this paper first provides a literature review on existing theories between UI and its effects on the labour and consumption market in section \@ref(literature-review). Section \@ref(data) examines the source, methodology, ethics of the data, and the data itself provided by the original authors. In section \@ref(results), we examine how employment, spending, income, UI duration connect. Finally, in section \@ref(discussion) we discuss the possible policy implications using the relations shown in section \@ref(results).  
 
 ## Literature Review
 
@@ -80,7 +78,7 @@ clean_spendchangtype |>
 ```
 
 
-##Graphs
+## Graphs
 
 ```{r spendingfig, fig.cap = "Spending Patterns Before, During, and After UI",  echo = FALSE}
 ### Constructing Spending Graph from spending dataframe ###
@@ -190,9 +188,11 @@ ggplot (clean_employdat,
 ```
 
 
-#Results
+# Results
 Results go here
 
-#Discussion
+# Discussion
 Discussion goes here
+
+# References
 
