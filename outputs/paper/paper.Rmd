@@ -34,8 +34,9 @@ load("../rda/clean_spendchangetype.rda")
 load("../rda/clean_spendingdat.rda")
 load("../rda/clean_employdat.rda")
 ```
+\newpage
+# Introduction
 
-# Introduction 
 Unemployment insurance (UI) is a crucial social welfare institution that is, although mandated by the federal government in the United States, administered on a state-by-state basis. UI walks a tightrope of free-market ethics; on the one hand it must help the unemployed stay afloat financially and provide a buffer as they look for new employment, and on the other hand it cannot be so abundant that it incentives individuals to stay unemployed. Differences in valuation between these two factors have resulted in differences in payment amount and duration in UI policies between different states. 
 
 Peter Ganong and Pascal Noel's article, "Consumer Spending During Unemployment: Positive and Normative Implications"^[@mainrepref], examines the effects of UI policies by tracking changes in income, spending, and employment prior to, during, and post UI benefits using anonymous banking information from JPMorgan Chase Institute (JPMCI). Some metrics are also compared across different states to examine how differences in UI policies are manifested in the economy. Ganong and Noel conclude that the increased marginal benefit of income as unemployment duration increases means that an extended duration of UI payments would benefit more than an overall increased in payment amount.
@@ -43,16 +44,37 @@ Peter Ganong and Pascal Noel's article, "Consumer Spending During Unemployment: 
 Using the original data provided by Ganong and Noel, this paper replicates the consumer spending, income, and employment hazard metrics to expand their conclusion, arguing that a diminishing payment schedule for UI across a longer duration would be even more effective. To develop this argument, this paper first provides a literature review on existing theories between UI and its effects on the labour and consumption market in section \@ref(literature-review). Section \@ref(data) examines the source, methodology, ethics of the data, and the data itself provided by the original authors. In section \@ref(results), we examine how employment, spending, income, UI duration connect. Finally, in section \@ref(discussion) we discuss the possible policy implications using the relations shown in section \@ref(results).  
 
 ## Literature Review
+Although a drop in consumption during unemployment is predictable outcome, in the article, *The Effect of Unemployment on Consumption: An Experimental Analysis*, Enrica Carbone and John Hey find that individuals over-correct their consumption patterns in response to unemployment^[@reactref]. Using a Markov process to estimate probability of continued unemployment, and calculating optimal consumption as a function of wealth, time, and employment status, Carbone and Hey construct two models of optimal consumption, one to reflect employment and the other to reflect unemployment. Comparing these optimal consumption models with actual consumption models in a field experiment replicating unemployment, Hey and Carbone found that the consumption model in the experiment chosen by participants is much lower than the optimal consumption model. A possible cause of error for consuming less than the optimal amount during unemployment is that the subjects "do not look as far as the correct horizon, but instead act as if there were a shorter horizon."^[@reactref page 678] In other words, the subjects were planning too short-term which led them to cutback more on consumption than necessary. This evidence suggests that rational choice theory is not consistently reflected in the real economy when examining the effects of unemployment and consumption. This has important implications on UI policy as a new model for representing how the consumption models of unemployed individuals is needed to determine how UI should be distributed to optimize spending.
+
+In *Beyond European unemployment insurance. Less Moral hazard, more moral assurance?*^[@euref], Schmid lists seven advantages of *ex ante* risk-sharing social insurance compared to *ex post* social security to argue for the creation of a 'European Unemployment Reinsurance Scheme' financed by employer and individual contributions to ease public finances. Our focus lies in the sixth and seventh advantages Schmid proposes: generous unemployment benefits of up to nine months of unemployment maintains effective demand and allows workers to reject non-standard, precarious work^[@euref pages 468 - 469] and unemployed individuals covered by insurance remain healthier and more self-confident than those without due to employability security and provision of income.^[@euref page 469] These two advantages serves the role of reframing our perception of unemployment payments from a "passive transfer" to an "active investment in productive job search" since "empirical studies show that unemployed workers endowed with generous wage replacements in the first six to nine months find more productive jobs than unemployed workers receiving no or only marginal benefits."^[@euref page 472] This finding reveals the possibility that although extending UI benefits past 6 months may prolong unemployment, the fiscal cost this incurs may be worth the benefit of more productive employment. This contradicts the *prima facie* assumption that supporting the unemployed for a longer period of time is solely negative and supports idleness. 
+
+Damaris Rose and Olga Stavrova's *Does life satisfaction predict reemployment? Evidence from German panel data* finds that higher levels of life satisfaction led to a stronger likelihood of reemployment independent of socio-economic characteristics, and labour market fluctuations supporting advantages that Schmid previously mentioned.^[@satisref] This view goes against conventional motivation theory which posits that "higher levels of life satisfaction in unemployed individuals might highjack their motivation to change their current circumstances, ultimately leading to a lower likelihood of reemployment."^[@motiveref] Rose and Stavrova compare interview data of 5363 individual's self-reported satisfaction levels and track their reemployment instances. Their findings suggest that there is an optimal level of life satisfaction that leads to higher reemployment rates. This moderate level of satisfaction balances the workplace productivity gains from high life satisfaction and the motivation gains to change life circumstances when satisfaction is low.^[@satisref] In the context of our paper, with the assumption that increased consumption leads to higher life satisfaction, this would mean that an across-the-board increase of UI benefits may lower motivation to find reemployment if life satisfaction from the increased benefits crosses the threshold and diminishes motivation. 
+
+The handful of literature discussed above serves to show the complex causal relations that binds the effects of UI policies. Both overabundance and insufficient UI support leads to inefficient market outcomes both for the individual and the macro-economy as a whole. Although finding a calculation that perfectly balances payments is unrealistic, a general payment scheme can be hypothesized to better find this balance.
 
 # Data
 ## Source and Methodology
 
-## Data ethics
+The dataset we use to replicate Ganong and Noel's graphs and tables are downloaded from the American Economic Review's journal website that links to OPENICPSR where the data is stored.^[https://www.openicpsr.org/openicpsr/project/116193/version/V1/view] 
 
+Data about spending, income, and employment status are extrapolated from 182,000 household bank accounts across 20 American states between January 2014 and June 2016. The authors partnered with JPMCI to receive this data anonymously. Spending and income were calculated by measuring debit and credit card transactions, cash withdrawals, and electronic transactions. All households examined received a UI direct deposit between the dates specified above. The households that receive UI benefits in this dataset claim benefits for a period of up to a maximum of six months. To create a more accurate reflection of household expenses and income, the expenses and income of spouses are combined even if their bank accounts are not officially linked in the banking system.  
+
+The original authors acknowledge two restrictions in their data source. The first being that the financial information of these households are derived solely from JPMCI accounts. This poses an issue because many households have checking accounts at multiple banks. To ensure that the households in the sample use JPMCI as their primary banking institution, the authors only included households with at least five monthly outflows which includes cash withdrawals, paper cheques, electronic payments, and debit card transactions.
+
+The second restriction of the dataset is including households with only a single continuous stream of UI payments. This means that households that have a break between UI payments because, for example, they found employment for a period of time and became unemployed again are not included in the dataset. This restriction is used to examine households that exhaust the maximum support  that the UI provides. To check the robustness, the authors examined the spending drop at the beginning unemployment is similar for both households that have a single stream of UI payments and households with multiple streams at different times. 
+
+Spending data which is found in tables \@ref(tab:spendchangetab) and \@ref(tab:spendchangetypetab) and figures \@ref(fig:spendingfig) and \@ref(fig:iandsfig) are measured from debit, credit, and electronic transactions and cash withdrawals. The authors further categorized spending into "strict nondurables", "other nondurables", and "durables". In general, durables are goods that do not need to be purchased very often and yields utility over time; they are not completely consumed after one use. Strict nondurable goods are consumed immediately after one use, in this case the authors list groceries, gasoline, and dining out as examples. other nondurables yield some utility over time but not long enough to be categorized as durable goods. Examples include medical payments, clothing, and drugstore payments. Categorization of spending into these categories helps create a clearer picture of how households reallocate their spending as income falls and uncertainty rises.   
+
+## Biases and Weaknesses
+
+Although the dataset is gathered across multiple states and branches of JPMCI, the use of only JPMCI customers means households that primarily use other financial institutions such as Bank of America, Wells Fargo, Citigroup, etc. are not represented in the dataset. This means that the data is representative only of JPMCI customers and their income/spending information. Although JPMCI is the largest bank in the United States based on asset management size, JPMCI customers are not representative of all UI recipients in the U.S. as a whole. To better understand spending and employment impacts of UI, the inclusion of banking data from the other "big four" banks of the U.S. should be considered. The sole reliance on JPMCI data is also problematic because roughly 28% of American households have checking accounts at multiple banks.^[@checkingsref] This means the spending and income data from the JPMCI accounts may not be wholly representative of actual spending and income households conduct. There may be alternate income streams or spending done in other accounts that are significant but not captured by JPMCI data alone. Despite the robustness check of only including accounts with at least five outflows, this does not account for potential alternate bank accounts where there is significant inflow meaning household income is not accurately represented. 
+
+A missing but relevant metric that using only anonymous banking data are long-term assets and liabilities that UI recipients may have. Large capital assets such as property ownership and large liabilities such as student loans which are not always reflected in banking transaction data may have effects on the spending pattern of UI recipients. This missing variable could further refine the aggregation of how spending drops at the onset of unemployment and end of UI eligibility by either limiting the drop, or exacerbating it. 
 
 ## Tables
 ```{r spendchangetab, out.extra = '', echo = FALSE}
 ### Constructing replicated table for Spending Change ###
+options(knitr.kable.NA = "")
 clean_spendchange |>
   knitr::kable(
     caption = "Spending Change at Unemployment Insurance Exhaustion",
@@ -64,8 +86,17 @@ clean_spendchange |>
     row_spec (0, color = "black")
 ```
 
+Table \@ref(tab:spendchangetab) details specific household expenditure before the start of UI, 1 month before UI exhaustion (marked as "during UI") and after UI exhaustion. The "Dollar Change Post and During UI" column is calculated by subtracting the "Post-UI" column values from the "Pre-Exhaustion" column values. This column more clearly articulates the dollar drop of expenses one month before UI benefits have ended and expenses after UI benefits have ended. The "Percentage Change Post and During UI" is calculated by dividing the "Dollar Change Post and During UI" by the "During UI" column values. These values provide a better understanding of how much reallocation of spending is being done by the households relative to spending during UI. The spending type column categorizes the spending to the type of good or service being purchased based on their economic durability. The category column shows the specific good or service being purchased. The "Other Bank Account Outflows" section which includes spending categories of transfer to external accounts, uncategorizable electronic, paper checks, non-Chase credit card bill, and installment debts are account outflows which could not be placed into durability categories because not enough information was available. The data is organized in descending order based on most percentage to least percentage change in spending.  
+
+This table is a replication of Ganong and Noel's table 2^[@mainrepref page 2400] with some minor changes to the column titles. The "Pre-UI", "During UI", "Post-UI", "$ Change Post and During UI" and "%" Change Post and During UI" columns were named "Pre-onset (1)", "Pre-Exhaustion (2)", "Change (3) - (2) (4)" and "Change (4)/(2) % (5)" in the original. The column titles were renamed to provide more standalone information so their columns can be understood independent of the original paper's context. 
+
+An initial observation of table \@ref(tab:spendchangetype) shows interesting prioritization of funds as income drops from UI exhaustion. Home improvement loses the most spending in terms of percentage. This is unsurprising as renovations projects can be put on hold until income becomes more stable and is not an immediate concern. Surprisingly, the drop in spending at discount stores, at -18.9% is more severe than department stores, at -17.7%. Intuitively, we would assume consumers would cut back on department store spending more than discount stores as income falls. Since income has decreased after UI has been exhausted, we expect consumers to switch to inferior goods which substitute normal goods reflected by a shift of spending from department stores to discount stores. This expectation is reflected from the transition of spending between Pre-UI and during UI periods where discount store spending went from \$57.70 to \$58.10 however the increase is quite marginal. The similar difference in food away from home at -15.9% and groceries at 15.8% suggests that households prioritize eating at home and eating out equally. The simultaenous reduction in both suggests that either a. households are in general eating the same quality of food but at a lesser amount or b. households are choosing cheaper alternatives to compensate for the loss of UI income.
+
+Goods and services that have inelastic demand and difficult to find alternatives for exhibit the smallest percentage change transitioning off of UI income. This includes insurance, utilities, and telecom which all show less than -10% change. Although the reduction in spending is small, the fact that there is a reduction means that households were being more conscious of their spending at the loss of UI income. 
+
 ```{r spendchangetypetab, out.extra = '', echo = FALSE}
 ### Constructing spending change table organized by type ###
+options(knitr.kable.NA = "")
 clean_spendchangtype |>
   knitr::kable(
     caption = "Spending Change at Unemployment Insurance Exhaustion Organized by Spending Type",
@@ -77,6 +108,7 @@ clean_spendchangtype |>
   row_spec (0, color = "black")
 ```
 
+Table \@ref(tab:spendchangetypetab) reorganizes table \@ref(tab:spendchangetab) by grouping different spending types together instead. This makes it easier to compare the impact of UI loss on spending between the spending types. Calculating the average percentage loss, spending on durable goods was reduced by 13.14%, nondurable goods reduced by 9%, strict nondurables were reduced by 9.98% and other nondurables were reduced by 15.68%. The largest reduction being other nondurable goods (which includes discount stores, department stores, retail, drug stores, medical copay, and online retail) is within expectations as nonessential goods are the first to be sacrificed during financial duress.       
 
 ## Graphs
 
@@ -106,8 +138,14 @@ ggplot(clean_spendingdat,
              color = "red") + 
   geom_hline(yintercept = 1,
              linetype = "solid",
-             color = "black")
+             color = "purple")
 ```
+
+Figure \@ref(fig:spendingfig) replicates a graph showing spending ratios five months before and ten months after a household's first UI payment.^[@mainrepref page 2395] Note that this spending reflects only households where the UI recipient remains unemployed up to 4 months after UI income has ended. The x-axis measures time since the first payment while the y-axis measures the ratio of spending to five months before the first UI payment. The purpose for this measurement is to examine spending differences before unemployment begins, during unemployment without UI, with UI, and after UI has stopped. The original graph found in Ganong and Noel's paper is a single colour and has one vertical line at x = 5.5 to show the time of UI exhaustion. Our graph is split into 4 colours to show the timeline of UI status. Green denotes spending Pre-UI activation, dark blue denotes spending during UI, and red denotes spending after UI has been exhausted. The black portions of the graph denote the interim periods representing the transition between receiving UI at x = 0 to x = 1 and transitioning off UI at x = 5 to x = 6. The vertical blue line at x - 0.5 was added to show the start of UI checks. The vertical line at x = 5.5 is equivalent to the vertical line in the original paper and denotes the end of UI. The horizontal purple line at y = 1.0 keeps track of spending levels at x = -5 to visualize how much spending has fallen since the control month (five months before UI starts). 
+
+Figure \@ref(fig:spendingfig) shows two significant drops in spending, the first being between two months before UI starts (x = -2) and when UI starts (x = 0), and the second between one month before UI ends (x = 5) and the month after UI ends (x = 6). At the start of receiving UI, spending is at roughly 94% of spending when employed. Although spending increases slightly once UI starts between x = 0 and x = 1, the overall trend of spending when receiving UI is downward sloping, meaning spending is still decreasing despite UI income. At the last UI check, at x = 5.5, spending is around 83% of spending during employment. Ten months after the first UI payment, spending is roughly 74% of spending during employment.
+
+The large dips in spending immediately after loss in sources of income suggests that household spending patterns are highly sensitive to changes in income in the short term. This is reinforced by the rise in spending immediately after receiving the first UI check, supporting Carbone and Hey's analysis outcome that consumers tend to be short-sighted and myopic.^[@reactref] Spending immediately before the start of UI at 93% and spending immediately after the end of UI at 77% suggests that households maintained a higher rate of spending before UI starts because they were expecting the supplementary income since we would expect unemployment spending before UI starts and after UI ends to be the same since in both periods income and employment status are the same. However, spending before UI starts is roughly 16% higher than after UI ends. An alternative explanation that forgoes expectation is that the sudden supplementary UI income delayed spending reaching its new equilibrium where income has decreased overall; households used the new UI income to maintain their previous spending habits as much as possible until the income ends and they quickly had to adapt spending to a lowered income once again. This explanation still maintains that consumers are shortsighted since longsighted consumers would decrease even after receiving the first UI check knowing that this income stream ends after 6 periods. Figure \@ref(fig:spendingfig) however shows that spending drops severely right after UI ends. 
 
 ```{r incomefig, fig.cap = "Income Stream Before, During, and After UI", echo = FALSE}
 ### Constructing income graph from income dataframe ###
@@ -135,36 +173,16 @@ ggplot (clean_incomedat,
              color = "red") + 
   geom_hline(yintercept = 1,
              linetype = "solid",
-             color = "black")
+             color = "purple")
 ```
 
-```{r iandsfig, fig.cap = "Income and Spending Before, During, and After UI", echo = FALSE}
-### Juxtaposing both income and spending graphs onto the same plane ###
+Figure \@ref(fig:incomefig) replicates the income graph in the original article depicting income ratios before, during, and after UI for households where the recipient remains unemployed.^[@mainrepref page 2395] The characteristics of the original graph are identical to the characteristics of the original spending graph described above except the y-axis denotes ratio of income compared to five months before the household receives their first UI payment. Our replication makes the same changes to this figure as figure \@ref(fig:spendingfig). 
 
-ggplot(clean_iandsdat) +
-  geom_line (aes(x = `Months Since Start`,
-                 y = `Ratio to t = -5`,
-                 group = `key`,
-                 color = `key`)
-  ) +
-theme_bw() +
-  scale_colour_manual(name = "Income or Spending", values = c("black", "grey")) +
-  labs(title = "Income and Spending Ratio Before, During, and After UI if Unemployment Persists",
-       x = "Months Since First UI Payment",
-       y = "Ratio to t = -5") +
-  scale_x_continuous(breaks = -5:10, minor_breaks = 1) +
-  
-#Adding vertical and horizontal lines at key points
-    geom_vline(xintercept = 0.5,
-             linetype = "longdash",
-             color = "blue") +
-  geom_vline(xintercept = 5.5,
-             linetype = "longdash",
-             color = "red") + 
-  geom_hline(yintercept = 1,
-             linetype = "longdash",
-             color = "black")
-```
+Similar to figure \@ref(fig:spendingfig), there are two instances of significant drops in the y-value. In this case, income drops two months before the first UI payment (x = -2) and significantly after the last UI payment (x = 5). The reduction in income after UI ends and after employment ends is significantly steeper. This suggests that after employment ended, households received some sort of severance income. Income while receiving UI is also not flat, falling between the months 1 - 3 and rising between months 3 - 4 before falling again. This suggests that the households had alternate sources of income besides UI, however the stabilization of income at the start of receiving UI indicates that UI was the main source of income at this time despite small fluctuations. The significant drop in income after UI ends further reinforces this suspicion. 
+
+Comparing household income during the different periods of UI shows an alarming amount of discrepancy. Before UI starts and after unemployment starts, estimated to be at 3 months before UI starts (x = -3), income remains above 80% of what it was during employment. This high retention rate in income is most likely supported by severance pay after employment has ended. During the UI period, household income hovers between 80% to 75% of income during employment. Once UI ends, however, income drops to 35% compared to when the recipient was employed. Income then remains level from months 6 - 10 as expected since the recipient remains unemployed. 
+
+To better understand the relationship between spending and income patterns, we combine figures \@ref(fig:spendingfig) and \@ref(fig:incomefig) to create figure \@ref(fig:iandsfig). This merging was done by taking the original dataset the authors provided and adding the y-values of the income graph to a new column corresponding to x-values of the spending graph since both graphs use the same x-values. Figure \@ref(fig:iandsfig) can be found in section \@ref(results). 
 
 ```{r employfig, fig.cap = "Employment Hazard Rate During and Post-UI", echo = FALSE}
 ggplot (clean_employdat,
@@ -187,9 +205,43 @@ ggplot (clean_employdat,
               color = "blue")
 ```
 
+Figure \@ref(fig:employfig) replicates a graph depicting the hazard rate of employment for households that receive UI.^[@mainrepref page 2406] The original graph is a single colour which we changed to depict UI status. Red shows the period where the household could have been receiving UI, black shows the interim period between the last potential UI check and one month after potentially receiving a final UI check. Green depicts the period after UI has potentially been exhausted. The x-axis depicts months since the last potential UI cheque received by the household. The y-axis depicts the job finding hazard rate which in other words accounts for the probability of the UI recipient finding employment.
+
+There are two spikes in the employment hazard rate, one between 5 months before and 4 months before the last potential UI cheque (x = -5 : x = -4) and one between 1 month before and the last month of the a potential UI cheque (x = -1 : x = 0). Job-finding increases by 38% when moving from two months of UI benefits remaining at 18.8% (x = -1) to one month of UI benefits remaining at 25.9% (x = 0).^[@mainrepref page 2406] This sudden increase in job-finding can be explained by the anticipation of the loss of UI income. The more modest increase at 5 months before the last UI cheque may be explained by motivation to find new employment immediately after unemployment. Recipients that do not find a job in this period experience a fall in the hazard rate suggesting that recipients lose motivation for job-searching after the first two initial months. The drop in hazard rate after UI exhaustion, however, is even more severe, falling from a peak of 25.9% to a low of less than 7.5% five months after the last potential UI cheque. This is alarming as this suggests recipients not only lose income support from UI, but also have a diminishing chance to find new employment. 
+
+Although this data will not be transposed to the same graph as income and spending, we will use the timeline and trends depicted here in combination with spending and income trends from \@ref(fig:iandsfig) to suggest policy implications from our findings. 
 
 # Results
-Results go here
+
+```{r iandsfig, fig.cap = "Income and Spending Before, During, and After UI", echo = FALSE}
+### Juxtaposing both income and spending graphs onto the same plane ###
+
+ggplot(clean_iandsdat) +
+  geom_line (aes(x = `Months Since Start`,
+                 y = `Ratio to t = -5`,
+                 group = `key`,
+                 color = `key`)
+  ) +
+theme_bw() +
+  scale_colour_manual(name = "Income or Spending", values = c("black", "grey")) +
+  labs(title = "Income and Spending Ratio if Unemployment Persists",
+       x = "Months Since First UI Payment",
+       y = "Ratio to t = -5") +
+  scale_x_continuous(breaks = -5:10, minor_breaks = 1) +
+  
+#Adding vertical and horizontal lines at key points
+    geom_vline(xintercept = 0.5,
+             linetype = "longdash",
+             color = "blue") +
+  geom_vline(xintercept = 5.5,
+             linetype = "longdash",
+             color = "red") + 
+  geom_hline(yintercept = 1,
+             linetype = "solid",
+             color = "purple")
+```
+
+
 
 # Discussion
 Discussion goes here
