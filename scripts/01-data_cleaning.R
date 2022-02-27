@@ -12,7 +12,7 @@ library(kableExtra)
 library(readxl)
 
 #Read in raw income and spending data
-raw_iandsdat <- readxl::read_xls("inputs/data/gn_ui_targets2018-10-12.xls")
+raw_iandsdat <- readxl::read_xls("../inputs/data/gn_ui_targets2018-10-12.xls")
 
 #Isolate spending data
 clean_spendingdat <-
@@ -38,7 +38,7 @@ clean_spendingdat <-
   )
 
 
-save (clean_spendingdat, file = "outputs/rda/clean_spendingdat.rda")
+save (clean_spendingdat, file = "../outputs/rda/clean_spendingdat.rda")
 
 #Isolate income data
 clean_incomedat <-
@@ -62,7 +62,7 @@ clean_incomedat <-
                                          `Months Since Start` > 0 & `Months Since Start` <= 5 ~ "During UI",
                                          `Months Since Start` > 5 ~ "Post-UI")
                              )
-save (clean_incomedat, file = "outputs/rda/clean_incomedat.rda")
+save (clean_incomedat, file = "../outputs/rda/clean_incomedat.rda")
 
 #Combined spending and income data
 clean_iandsdat <-
@@ -78,10 +78,10 @@ clean_iandsdat <-
     "Ratio to t = -5" = "value"
   )
 
-save (clean_iandsdat, file = "outputs/rda/clean_iandsdat.rda")
+save (clean_iandsdat, file = "../outputs/rda/clean_iandsdat.rda")
 
 #Read in raw spending change data
-raw_spendchange <- readxl::read_xlsx("inputs/data/tables.xlsx", "t2_color")
+raw_spendchange <- readxl::read_xlsx("../inputs/data/tables.xlsx", "t2_color")
 
 #Remove first three rows of dataframe with old titles and legends
 clean_spendchange <-
@@ -120,7 +120,7 @@ options(digits = 5)
 clean_spendchange$`% Change Post and During UI` <-  
   clean_spendchange$`% Change Post and During UI` * 100
 
-save(clean_spendchange, file = "outputs/rda/clean_spendchange.rda")
+save(clean_spendchange, file = "../outputs/rda/clean_spendchange.rda")
 
 #Create new dataframe ordering data by spending type 
 clean_spendchangtype <-
@@ -132,11 +132,11 @@ clean_spendchangtype <-
                                        )
                                 )
 
-save (clean_spendchangtype, file = "outputs/rda/clean_spendchangetype.rda")
+save (clean_spendchangtype, file = "../outputs/rda/clean_spendchangetype.rda")
 
 
 #Read in raw employment hazard data
-raw_employdat <- readxl::read_xls("inputs/data/gn_ui_targets2018-09-20.xls")
+raw_employdat <- readxl::read_xls("../inputs/data/gn_ui_targets2018-09-20.xls")
 
 #Change column title 
 clean_employdat <-
@@ -151,7 +151,7 @@ clean_employdat <-
                                           `Months Since Last UI` > 0 ~ "Post-UI") 
                               )
 
-save(clean_employdat, file = "outputs/rda/clean_employdat.rda")
+save(clean_employdat, file = "../outputs/rda/clean_employdat.rda")
 
 
 
