@@ -11,6 +11,8 @@ library(dplyr)
 library(kableExtra)
 library(readxl)
 
+
+getwd()
 #Read in raw income and spending data
 raw_iandsdat <- readxl::read_xls("../inputs/data/gn_ui_targets2018-10-12.xls")
 
@@ -38,7 +40,7 @@ clean_spendingdat <-
   )
 
 
-save (clean_spendingdat, file = "outputs/rda/clean_spendingdat.rda")
+save (clean_spendingdat, file = "../outputs/rda/clean_spendingdat.rda")
 
 #Isolate income data
 clean_incomedat <-
@@ -62,7 +64,7 @@ clean_incomedat <-
                                          `Months Since Start` > 0 & `Months Since Start` <= 5 ~ "During UI",
                                          `Months Since Start` > 5 ~ "Post-UI")
                              )
-save (clean_incomedat, file = "outputs/rda/clean_incomedat.rda")
+save (clean_incomedat, file = "../outputs/rda/clean_incomedat.rda")
 
 #Combined spending and income data
 clean_iandsdat <-
@@ -78,7 +80,7 @@ clean_iandsdat <-
     "Ratio to t = -5" = "value"
   )
 
-save (clean_iandsdat, file = "outputs/rda/clean_iandsdat.rda")
+save (clean_iandsdat, file = "../outputs/rda/clean_iandsdat.rda")
 
 #Read in raw spending change data
 raw_spendchange <- readxl::read_xlsx("../inputs/data/tables.xlsx", "t2_color")
@@ -132,7 +134,7 @@ clean_spendchangtype <-
                                        )
                                 )
 
-save (clean_spendchangtype, file = "outputs/rda/clean_spendchangetype.rda")
+save (clean_spendchangtype, file = "../outputs/rda/clean_spendchangetype.rda")
 
 
 #Read in raw employment hazard data
@@ -151,4 +153,4 @@ clean_employdat <-
                                           `Months Since Last UI` > 0 ~ "Post-UI") 
                               )
 
-save(clean_employdat, file = "outputs/rda/clean_employdat.rda")
+save(clean_employdat, file = "../outputs/rda/clean_employdat.rda")
